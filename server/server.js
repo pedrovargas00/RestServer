@@ -8,12 +8,15 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
+const path = require('path')
 
 //parse x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
 //parse avec json
 app.use(bodyParser.json())
-app.use(require('./routes/usuario'))
+app.use(require('./routes/index'))
+//Habilitar la carpeta public
+app.use(express.static(path.resolve(__dirname, '../public')))
 mongoose.connect(process.env.URLDB, 
                 {useNewUrlParser: true, useCreateIndex: true},
                 (err, res) => {
